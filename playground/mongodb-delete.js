@@ -15,13 +15,16 @@ MongoClient.connect('mongodb://localhost:27017/todoApp',(err,db)=>{
 	// 	console.log(result)
 	// })
 
-	db.collection('Users').deleteMany({name:'Joco'}).then((result)=>{
-		console.log(result)
-	})
+	// db.collection('Users').deleteMany({name:'Joco'}).then((result)=>{
+	// 	console.log(result)
+	// })
 
-	db.collection('Users').deleteOne({_id:124}).then((result)=>{
-		console.log(result)
-	})
+	// db.collection('Users').findOneAndDelete({_id:125}).then((result)=>{
+	// 	console.log(JSON.stringify(result,undefined,2))
+	// })
+
+	
+
 
 	// db.close()
 });
