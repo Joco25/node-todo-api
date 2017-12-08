@@ -53,7 +53,7 @@ app.delete('/todos/:id',(req,res)=>{
 		if(!todo){
 			return res.status(404).send({error:"No todo item was deleted"})
 		}
-		res.send(todo)
+		res.send({todo})
 	}).catch((e)=>{
 		res.status(400).send(e)
 	})
