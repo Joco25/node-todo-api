@@ -10,7 +10,10 @@ const todos=[{
 	text:'Hmmmm'
 },{
 	_id: new ObjectID,
-	text:'Hmmmm 2'}
+	text:'Hmmmm 2',
+	completed: true,
+	completedAt: 333
+}
 ]
 
 
@@ -135,4 +138,38 @@ describe('DELETE /todos/:id', ()=>{
 	// it('should return 404 if ObjectID invalid',(done)=>{
 
 	// })
+})
+
+describe('PATCH /todos/:id',()=>{
+	it('should update todo',(done)=>{
+		let id = todos[0]._id.toHexString()
+		let text = "Im on a 100"
+		let completed= true
+		request(app)
+			.patch(`/todos/${id}`)
+			.send({text,completed})
+			.expect(200)
+			.expect((res)=>{
+				expect(res.body.todo.text).toBe(text)
+				expect(res.body.todo.completed).toBe(completed)
+				expect(res.body.todo.completedAt).toBeA('number')
+			})
+			.end(done)
+	})
+
+	it('should clear completedAt when todo is not completed',(done)=>{
+		let id = todos[1]._id.toHexString()
+		let text = "Plenty Money comes to me this week and I receive it"
+		let completed= false
+		request(app)
+			.patch(`/todos/${id}`)
+			.send({text,completed})
+			.expect(200)
+			.expect((res)=>{
+				expect(res.body.todo.text).toBe(text)
+				expect(res.body.todo.completed).toBe(completed)
+				expect(res.body.todo.completedAt).toNotExist()
+			})
+			.end(done)
+	})
 })
